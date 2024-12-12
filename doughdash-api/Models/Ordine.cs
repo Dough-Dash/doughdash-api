@@ -12,6 +12,7 @@ public class Ordine
     public int IDOrdine { get; set; } // Changed from init to set
 
     public string Descrizione { get; set; }
+    public bool Stato { get; set; }
     public TimeSpan? Orario { get; set; }
     public string Base64Image { get; set; }
     public int Pizzeria { get; set; }
