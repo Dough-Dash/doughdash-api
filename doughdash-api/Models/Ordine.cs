@@ -17,5 +17,5 @@ public class Ordine
     public string Base64Image { get; set; }
     public int Pizzeria { get; set; }
     public int Cliente { get; set; }
-    public int Rider { get; set; }
+    public int? Rider { get; set; }
 }

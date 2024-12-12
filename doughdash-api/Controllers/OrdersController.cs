@@ -35,6 +35,60 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
+    [Route("/setOrderStatus")]
+    public IActionResult SetOrderStatus(int? riderId, int? orderId, bool status, string? accessCode)
+    {
+        if (riderId == null || orderId == null ||accessCode == null) return BadRequest("Id is required");
+
+        var authorization = new Authorization(_context);
+        if (!authorization.CheckAccessCode(accessCode)) return Unauthorized("Invalid access token");
+        
+        try
+        {
+            var ordine = _context.Ordini.FirstOrDefault(e => e.IDOrdine == orderId);
+            if (ordine == null) return NotFound("Ordine not found");
+            ordine.Stato = status;
+            
+            var rider = _context.Riders.FirstOrDefault(r => r.Id == riderId);
+            if (rider == null) return BadRequest("Rider not found");
+            ordine.Rider = riderId;
+            
+            _context.Ordini.Update(ordine);
+            _context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception e)
+        {  
+            _logger.LogError(e, "Error setting order status");
+            throw;
+        }
+    }
+
+    [HttpDelete]
+    [Route("/deleteOrder")]
+    public IActionResult DeleteOrder(int? id, string? accessCode)
+    {
+        if(id == null || accessCode == null) return BadRequest("Id is required");
+        
+        var authorization = new Authorization(_context);
+        if (!authorization.CheckAccessCode(accessCode)) return Unauthorized("Invalid access token");
+
+        try
+        {
+            var ordine = _context.Ordini.FirstOrDefault(e => e.IDOrdine == id);
+            if (ordine == null) return NotFound("Ordine not found");
+            _context.Ordini.Remove(ordine);
+            _context.SaveChanges();
+            return Ok();            
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error deleting order");
+            throw;
+        }
+    }
+
+    [HttpPost]
     [Route("/getAllOrders")]
     [Produces("application/json")]
     public async Task<IActionResult> GetAllRiders(string? accessToken)
