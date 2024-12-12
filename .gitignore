@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 .idea
-launchSettings.json
+Properties
 appsettings.json
