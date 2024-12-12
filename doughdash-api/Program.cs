@@ -1,6 +1,5 @@
 using doughdash_api.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +11,7 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(connectionString))
-{
     throw new InvalidOperationException("Connection string 'DefaultConnection' is not found.");
-}
 
 builder.Services.AddDbContext<DoughDashContext>(options =>
     options.UseMySQL(connectionString));
