@@ -59,8 +59,7 @@ public class OrdersController : ControllerBase
         // Explicitly set ID to 0 to allow auto-increment
         order.IDOrdine = 0;
 
-        // Set the current timestamp if not already set
-        order.Orario = TimeSpan.FromSeconds(DateTime.UtcNow.Second);
+        order.Orario ??= TimeSpan.FromSeconds(DateTime.UtcNow.Second);
 
         try
         {

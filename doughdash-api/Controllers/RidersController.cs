@@ -41,9 +41,12 @@ public class RidersController : ControllerBase
     [HttpPost]
     [Route("/getAllRiders")]
     [Produces("application/json")]
-    public async Task<IActionResult> GetAllRiders(string accessToken)
+    public async Task<IActionResult> GetAllRiders(string? accessToken)
     {
-        if (accessToken != "TEST") return Unauthorized("Invalid access token");
+        if (accessToken == null) return BadRequest("Access token is required");
+
+        var authorization = new Authorization(_context);
+        if (!authorization.CheckAccessCode(accessToken)) return Unauthorized("Invalid access token");
 
         return Ok(await _context.Riders.ToListAsync());
     }
