@@ -44,7 +44,7 @@ public class OrdersController : ControllerBase
         var authorization = new Authorization(_context);
         if (!authorization.CheckAccessCode(accessToken)) return Unauthorized("Invalid access token");
 
-        return Ok(await _context.Riders.ToListAsync());
+        return Ok(await _context.Ordini.ToListAsync());
     }
 
     [HttpPost]
@@ -60,7 +60,7 @@ public class OrdersController : ControllerBase
         order.IDOrdine = 0;
 
         // Set the current timestamp if not already set
-        order.Orario = DateTime.UtcNow;
+        order.Orario = TimeSpan.FromSeconds(DateTime.UtcNow.Second);
 
         try
         {

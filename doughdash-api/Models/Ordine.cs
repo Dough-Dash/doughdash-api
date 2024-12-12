@@ -10,8 +10,8 @@ public class Ordine
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column(Order = 0)]
     public int IDOrdine { get; set; } // Changed from init to set
-
-    public DateTime Orario { get; set; }
+    public string Descrizione { get; set; }
+    public TimeSpan Orario { get; set; }
     public string Base64Image { get; set; }
     public int Pizzeria { get; set; }
     public int Cliente { get; set; }
