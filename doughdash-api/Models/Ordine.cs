@@ -13,6 +13,7 @@ public class Ordine
 
 
     public string? Descrizione { get; set; } // Nullable if the column can be null
+    public bool? Stato { get; set; }
     public TimeSpan? Orario { get; set; }
     public byte[]? Base64Image { get; set; }
     public int? Pizzeria { get; set; } // Nullable integer
