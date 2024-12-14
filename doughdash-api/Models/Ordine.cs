@@ -11,10 +11,11 @@ public class Ordine
     [Column(Order = 0)]
     public int IDOrdine { get; set; } // Changed from init to set
 
-    public string Descrizione { get; set; }
+
+    public string? Descrizione { get; set; } // Nullable if the column can be null
     public TimeSpan? Orario { get; set; }
-    public string Base64Image { get; set; }
-    public int Pizzeria { get; set; }
-    public int Cliente { get; set; }
-    public int Rider { get; set; }
+    public byte[]? Base64Image { get; set; }
+    public int? Pizzeria { get; set; } // Nullable integer
+    public int? Cliente { get; set; }
+    public int? Rider { get; set; }
 }
